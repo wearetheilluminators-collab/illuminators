@@ -81,6 +81,13 @@ function inPage() {
         if (name === '375x667' || name === '1280x800') {
           await page.addScriptTag({ path: axePath });
           axe = await page.evaluate(async () => (await axe.run(document, { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] } })).violations.map((v) => v.id + ' x' + v.nodes.length));
+          if (name === '375x667') { // the mobile menu drawer is hidden until opened, so scan it open too
+            await page.locator('button.ct-header-trigger').first().click();
+            await page.waitForFunction(() => document.querySelector('#offcanvas') && document.querySelector('#offcanvas').classList.contains('active'));
+            await page.waitForTimeout(1500);
+            const drawer = await page.evaluate(async () => (await axe.run(document.querySelector('#offcanvas'), { runOnly: { type: 'tag', values: ['wcag2a', 'wcag2aa', 'wcag21aa', 'wcag22aa'] } })).violations.map((v) => 'open drawer: ' + v.id + ' x' + v.nodes.length));
+            axe = axe.concat(drawer);
+          }
         }
         const bad = [];
         if (m.overflow) bad.push('HORIZONTAL OVERFLOW ' + m.scrollW + ' > ' + m.vw + ' :: ' + m.offenders.join(', '));

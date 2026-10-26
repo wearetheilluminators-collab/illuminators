@@ -36,7 +36,7 @@ None found.
 
 - Wording to confirm: Brands page "One price for the trade, whatever the order size" vs the copper-pipe FAQ "priced per kg, per coil or per metre depending on quantity"; founder "Suresh Kumar Nahata" and son "Saurabh Jain" (different surnames, left unchanged).
 - Terminology: "swedging" (5) vs "swaging" (11); straight apostrophes (19) vs curly (85); `1/4"` vs `1/4″` in a few places; `6mm` vs `6 mm` in page titles.
-- The theme's header, footer, search and 404 use the system font while page content uses Barlow. Optional one-line change: `:root{--theme-font-family:"Barlow",sans-serif}`. Tested, no overflow, left as a design decision.
+- The theme's header, footer, search and 404 use the system font while page content uses Barlow. Optional one-line change: `:root{--theme-font-family:"Barlow",sans-serif;--theme-button-font-family:"Barlow",sans-serif}`. Tested: no overflow at any width, nav and phone button 7-15% narrower. Barlow looks slightly lighter and smaller than the system font at the same pixel size (most visible in the 14px footer text), so adopting it may call for a 15px footer. Left as a design decision.
 - "RANGE / COPPER PIPE" eyebrow labels are not links (the BreadcrumbList schema is present).
 - Link lists such as "Other lines" are 39px tall (above the WCAG 24px minimum, under the 44px comfort size).
 - 404 page: axe "region" notice for the theme's "No results" status node. Theme logo link carries `itemprop="url"` (W3C validator error, harmless). Header phone button's aria-label could read "Call +91 89399 93555".
@@ -66,6 +66,7 @@ None found.
 - 6 VALUE "View range" links: accessible name now starts with the visible words.
 - Scrollable data tables are keyboard-reachable (tab stop and name added only while they actually scroll).
 - Visible keyboard focus on the form submit button.
+- **Mobile menu drawer contrast (found 26 Oct, after the first report).** The drawer panel is near-black (theme default) but its links inherited the header's dark slate: 2.11:1, and 1.53:1 for the current page, against the 4.5:1 required, on every page at phone and tablet widths. My first axe pass scanned with the drawer closed and missed it. Links are now white with the current page in light cyan, as in the footer (axe on the open drawer: 0 violations at 375 and 768 on Home, Contact and Insulation). Item 9 of the QA CSS block.
 
 **Mobile and consistency** (CSS block "Pre-launch QA, 24 Oct 2026" in Additional CSS)
 - All Elementor buttons 44px tall (the hero pair was 39px beside 43px).
